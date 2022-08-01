@@ -1,0 +1,80 @@
+﻿<Window x:Class="AccountManager.Login"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AccountManager"
+        mc:Ignorable="d"
+        Title="Login" Height="450" Width="800">
+    <Grid Background="#9095A1">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Column="0">
+            <Label Content="Login" HorizontalAlignment="Center" VerticalAlignment="Top"
+                   FontSize="22" Margin="0,50,0,0"/>
+            <Grid Height="250" Margin="10,10,10,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.35*"/>
+                    <ColumnDefinition Width="0.65*"/>
+                </Grid.ColumnDefinitions>
+                <!--<Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>-->
+
+                <StackPanel Grid.Column="0">
+                    <Label Content="Mail:" FontSize="16" Height="50"/>
+                    <Label Content="Password:" FontSize="16" Height="50"/>
+                </StackPanel>
+                <StackPanel Grid.Column="1">
+                    <TextBox x:Name="LoginMailInput" HorizontalAlignment="Stretch" Margin="5"
+                             Text="email&#xD;&#xA;"/>
+                    <TextBox x:Name="LoginPasswordInput" HorizontalAlignment="Stretch" Margin="5"
+                             Text="password&#xD;&#xA;"/>
+                </StackPanel>
+            </Grid>
+            <Button x:Name="LoginButton" Content="Sign in" HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom" Width="160" Height="30"/>
+        </StackPanel>
+
+        <StackPanel Grid.Column="1">
+            <Label Content="Register" HorizontalAlignment="Center" VerticalAlignment="Top"
+                   FontSize="22" Margin="0,50,0,0"/>
+            <Grid Height="250" Margin="10,10,10,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.35*"/>
+                    <ColumnDefinition Width="0.65*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <Label Content="Mail:" FontSize="16" Grid.Row="0"/>
+                <Label Content="Password:" FontSize="16" Grid.Row="1"/>
+                <Label Content="Name:" FontSize="16" Grid.Row="2"/>
+                <Label Content="Surname:" FontSize="16" Grid.Row="3"/>
+                <Label Content="Phone Number:" FontSize="16" Grid.Row="4"/>
+
+                <TextBox x:Name="RegisterMailInput" HorizontalAlignment="Stretch" Margin="5"
+                             Text="email&#xD;&#xA;" Grid.Column="1" Grid.Row="0"/>
+                <TextBox x:Name="RegisterPasswordInput" HorizontalAlignment="Stretch" Margin="5"
+                             Text="password&#xD;&#xA;" Grid.Column="1" Grid.Row="1"/>
+                <TextBox x:Name="RegisterNameInput" HorizontalAlignment="Stretch" Margin="5"
+                             Text="name&#xD;&#xA;" Grid.Column="1" Grid.Row="2"/>
+                <TextBox x:Name="RegisterSurnameInput" HorizontalAlignment="Stretch" Margin="5"
+                             Text="surname&#xD;&#xA;" Grid.Column="1" Grid.Row="3"/>
+                <TextBox x:Name="RegisterPhoneNumberInput" HorizontalAlignment="Stretch" Margin="5"
+                             Text="phone number&#xD;&#xA;" Grid.Column="1" Grid.Row="4"/>
+            </Grid>
+            <Button x:Name="RegisterButton" Content="Sign up" HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom" Width="160" Height="30"/>
+        </StackPanel>
+    </Grid>
+</Window>
