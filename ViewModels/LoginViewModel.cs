@@ -15,14 +15,15 @@ namespace AccountManager.ViewModels
     {
         private readonly MainWindow mainWindow;
         private readonly IUsersService usersService;
+        private readonly Login loginWindow;
 
         public ICommand LoginCommand { get; }
         public ICommand RegisterCommand { get; }
 
-        public LoginViewModel(MainWindow mainWindow, IUsersService UsersService)
+        public LoginViewModel(Login loginWindow, IUsersService usersService)
         {
-            this.usersService = UsersService;
-            this.mainWindow = mainWindow;
+            this.usersService = usersService;
+            this.loginWindow = loginWindow;
 
             LoginCommand = new RelayCommand(Login);
             RegisterCommand = new RelayCommand(Register);
@@ -32,8 +33,8 @@ namespace AccountManager.ViewModels
         {
             var user = new User()
             {
-                Email = LoginMailInput.Text.Replace(Environment.NewLine, "").Replace("\n", ""),
-                Password = LoginPasswordInput.Text.Replace(Environment.NewLine, "").Replace("\n", "")
+                Email = loginWindow.LoginMailInput.Text.Replace(Environment.NewLine, "").Replace("\n", ""),
+                Password = loginWindow.LoginPasswordInput.Text.Replace(Environment.NewLine, "").Replace("\n", "")
             };
 
             var result = usersService.Login(user);
@@ -42,11 +43,11 @@ namespace AccountManager.ViewModels
             {
                 Settings.Default.Email= user.Email;
                 mainWindow.Show();
-                Close();
+                loginWindow.Close();
             }
             else
             {
-                statusLabel.Content = "Incorrect mail or password";
+                loginWindow.statusLabel.Content = "Incorrect mail or password";
             }
         }
 
@@ -54,11 +55,11 @@ namespace AccountManager.ViewModels
         {
             var user = new User()
             {
-                Email = RegisterMailInput.Text.Replace(Environment.NewLine, "").Replace("\n", ""),
-                Password = RegisterPasswordInput.Text.Replace(Environment.NewLine, "").Replace("\n", ""),
-                UserName = RegisterNameInput.Text.Replace(Environment.NewLine, "").Replace("\n", ""),
-                Surname = RegisterSurnameInput.Text.Replace(Environment.NewLine, "").Replace("\n", ""),
-                PhoneNumber = RegisterPhoneNumberInput.Text.Replace(Environment.NewLine, "").Replace("\n", "")
+                Email = loginWindow.RegisterMailInput.Text.Replace(Environment.NewLine, "").Replace("\n", ""),
+                Password = loginWindow.RegisterPasswordInput.Text.Replace(Environment.NewLine, "").Replace("\n", ""),
+                UserName = loginWindow.RegisterNameInput.Text.Replace(Environment.NewLine, "").Replace("\n", ""),
+                Surname = loginWindow.RegisterSurnameInput.Text.Replace(Environment.NewLine, "").Replace("\n", ""),
+                PhoneNumber = loginWindow.RegisterPhoneNumberInput.Text.Replace(Environment.NewLine, "").Replace("\n", "")
             };
 
             var result = usersService.Register(user);
@@ -67,15 +68,15 @@ namespace AccountManager.ViewModels
             {
                 Settings.Default.Email = user.Email;
                 mainWindow.Show();
-                Close();
+                loginWindow.Close();
             }
             else
             {
-                statusLabelReg.Content = "Error while signing up";
+                loginWindow.statusLabelReg.Content = "Error while signing up";
             }
 
             mainWindow.Show();
-            Close();
+            loginWindow.Close();
         }
     }
 }
