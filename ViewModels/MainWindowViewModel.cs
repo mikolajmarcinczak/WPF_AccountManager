@@ -8,6 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
+using System.Windows.Input;
+using System.Windows.Media;
 
 namespace AccountManager.ViewModels
 {
@@ -19,7 +22,7 @@ namespace AccountManager.ViewModels
         private readonly IInfoService infoService;
         List<Bill> billsList = new List<Bill>();
 
-        public MainWindowViewModel (MainWindow mainWindow,
+        public MainWindowViewModel(MainWindow mainWindow,
                                     IUsersService usersService,
                                     IBillsService billsService,
                                     IInfoService infoService)
@@ -57,7 +60,7 @@ namespace AccountManager.ViewModels
             mainWindow.welcomeLabel.Visibility = Visibility.Visible;
             mainWindow.mainDataGrid.Visibility = Visibility.Hidden;
             mainWindow.addInfoBtn.Visibility = Visibility.Visible;
-            mainWindow.welcomeLabel.Content = infoService.GetInformationStringForUser(Setttings.Default.UserName);
+            mainWindow.welcomeLabel.Content = infoService.GetInformationStringForUser(Settings.Default.UserName);
         }
 
         ContextMenu cxMenu = null;
@@ -68,6 +71,139 @@ namespace AccountManager.ViewModels
         {
             cxMenu = new ContextMenu();
 
+            GenerateMonthTB(cxMenu);
+
+            Button saveBillBtn = new Button();
+            saveBillBtn.Content = "Save";
+            cxMenu.Items.Add(saveBillBtn);
+            cxMenu.IsOpen = true;
+            saveBillBtn.Click += new RoutedEventHandler(saveBillBtnClick);
+        }
+
+        private void saveBillBtnClick(object sender, RoutedEventArgs e)
+        {
+            Bill bill = new Bill()
+            {
+                April = Double.Parse(aprTB.Text),
+                August = Double.Parse(augTB.Text),
+                December = Double.Parse(decTB.Text),
+                February = Double.Parse(febTB.Text),
+                January = Double.Parse(janTB.Text),
+                July = Double.Parse(julTB.Text),
+                June = Double.Parse(junTB.Text),
+                March = Double.Parse(marTB.Text),
+                May = Double.Parse(mayTB.Text),
+                November = Double.Parse(novTB.Text),
+                October = Double.Parse(octTB.Text),
+                September = Double.Parse(sepTB.Text),
+                BillName = nameTB.Text,
+                UserId = usersService.GetUserIdByName(Settings.Default.UserName),
+            };
+            billsService.Add(bill);
+        }
+
+        private void mainDataGrid_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            DependencyObject depObj = (DependencyObject)e.OriginalSource;
+
+            while (
+                (depObj != null) &&
+                !(depObj is DataGridCell) &&
+                !(depObj is DataGridColumnHeader))
+            {
+                depObj = VisualTreeHelper.GetParent(depObj);
+            }
+
+            if (depObj == null)
+            {
+                return;
+            }
+
+            if (depObj is DataGridCell)
+            {
+                while ((depObj != null) && !(depObj is DataGridRow))
+                {
+                    depObj = VisualTreeHelper.GetParent(depObj);
+                }
+
+                DataGridRow dgRow = depObj as DataGridRow;
+                dgRow.ContextMenu = cxMenu;
+            }
+        }
+
+        private void mainDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            cxMenu = new ContextMenu();
+
+            foreach (Bill item in mainWindow.mainDataGrid.SelectedItems)
+            {
+                bill = new Bill
+                {
+                    Id = item.Id,
+                    April = item.April,
+                    August = item.August,
+                    December = item.December,
+                    February = item.February,
+                    January = item.January,
+                    July = item.July,
+                    June = item.June,
+                    March = item.March,
+                    May = item.May,
+                    November = item.November,
+                    October = item.October,
+                    September = item.September,
+                    BillName = item.BillName,
+                    BillsYear = item.BillsYear
+                };
+            }
+
+            GenerateMonthTB(cxMenu);
+
+            Button btnSave = new Button();
+            btnSave.Content = "Save";
+            cxMenu.Items.Add(btnSave);
+            btnSave.Click += new RoutedEventHandler(SaveBillsBtn);
+        }
+
+        Bill bill = null;
+
+        private void SaveBillsBtn()
+        {
+            Bill bill = new Bill();
+
+            foreach (Bill item in billsList)
+            {
+                if (item.Id == Convert.ToInt32(txtId.Text))
+                {
+                    item.April = Double.Parse(aprTB.Text == "" ? "0" : aprTB.Text);
+                    item.August = Double.Parse(augTB.Text == "" ? "0" : augTB.Text);
+                    item.December = Double.Parse(decTB.Text == "" ? "0" : decTB.Text);
+                    item.February = Double.Parse(febTB.Text == "" ? "0" : febTB.Text);
+                    item.January = Double.Parse(janTB.Text == "" ? "0" : janTB.Text);
+                    item.July = Double.Parse(julTB.Text == "" ? "0" : julTB.Text); ;
+                    item.June = Double.Parse(junTB.Text == "" ? "0" : junTB.Text);
+                    item.March = Double.Parse(marTB.Text == "" ? "0" : marTB.Text);
+                    item.May = Double.Parse(mayTB.Text == "" ? "0" : mayTB.Text);
+                    item.November = Double.Parse(novTB.Text == "" ? "0" : novTB.Text);
+                    item.October = Double.Parse(octTB.Text == "" ? "0" : octTB.Text);
+                    item.September = Double.Parse(sepTB.Text == "" ? "0" : sepTB.Text);
+
+                    billsService.Edit(item);
+                }
+            }
+
+            mainWindow.mainDataGrid.SelectionChanged -= new SelectionChangedEventHandler(mainDataGrid_SelectionChanged);
+
+            mainWindow.mainDataGrid.ItemsSource = null;
+            mainWindow.mainDataGrid.ItemsSource = billsList;
+            mainWindow.mainDataGrid.SelectedIndex = -1;
+
+            cxMenu.IsOpen = false;
+            mainWindow.mainDataGrid.SelectionChanged += new SelectionChangedEventHandler(mainDataGrid_SelectionChanged);
+        }
+
+        private void GenerateMonthTB(ContextMenu cxMenu)
+        {
             var bill = new Bill();
             txtId = new TextBlock();
             txtId.Text = bill.Id.ToString();
@@ -87,6 +223,56 @@ namespace AccountManager.ViewModels
             febTB.Text = "000";
             cxMenu.Items.Add("FEBRUARY");
             cxMenu.Items.Add(febTB);
+
+            marTB = new TextBox();
+            marTB.Text = "000";
+            cxMenu.Items.Add("MARCH");
+            cxMenu.Items.Add(marTB);
+
+            aprTB = new TextBox();
+            aprTB.Text = "000";
+            cxMenu.Items.Add("APRIL");
+            cxMenu.Items.Add(aprTB);
+
+            mayTB = new TextBox();
+            mayTB.Text = "000";
+            cxMenu.Items.Add("MAY");
+            cxMenu.Items.Add(mayTB);
+
+            junTB = new TextBox();
+            junTB.Text = "000";
+            cxMenu.Items.Add("JUNE");
+            cxMenu.Items.Add(junTB);
+
+            julTB = new TextBox();
+            julTB.Text = "000";
+            cxMenu.Items.Add("JULY");
+            cxMenu.Items.Add(julTB);
+
+            augTB = new TextBox();
+            augTB.Text = "000";
+            cxMenu.Items.Add("AUGUST");
+            cxMenu.Items.Add(augTB);
+
+            sepTB = new TextBox();
+            sepTB.Text = "000";
+            cxMenu.Items.Add("SEPTEMBER");
+            cxMenu.Items.Add(sepTB);
+
+            octTB = new TextBox();
+            octTB.Text = "000";
+            cxMenu.Items.Add("OCTOBER");
+            cxMenu.Items.Add(octTB);
+
+            novTB = new TextBox();
+            novTB.Text = "000";
+            cxMenu.Items.Add("NOVEMBER");
+            cxMenu.Items.Add(novTB);
+
+            decTB = new TextBox();
+            decTB.Text = "000";
+            cxMenu.Items.Add("DECEMBER");
+            cxMenu.Items.Add(decTB);
         }
 
         private void AddInfoBtn()
