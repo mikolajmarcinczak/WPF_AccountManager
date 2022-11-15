@@ -167,7 +167,7 @@ namespace AccountManager.ViewModels
 
         Bill bill = null;
 
-        private void SaveBillsBtn()
+        private void SaveBillsBtn(object sender, RoutedEventArgs e)
         {
             Bill bill = new Bill();
 
@@ -275,9 +275,46 @@ namespace AccountManager.ViewModels
             cxMenu.Items.Add(decTB);
         }
 
-        private void AddInfoBtn()
+        private void AddInfoBtn(object sender, RoutedEventArgs e)
         {
+            cxMenu = new ContextMenu();
+            DependencyObject depObj = (DependencyObject)e.OriginalSource;
 
+            txtId = new TextBlock();
+            txtId.Text = "Info: ";
+            cxMenu.Items.Add(txtId);
+
+            txtFN = new TextBox();
+            txtFN.Text = "Info: ";
+            cxMenu.Items.Add(txtFN);
+
+            txtId = new TextBlock();
+            txtId.Text = "Content: ";
+            cxMenu.Items.Add(txtId);
+
+            txtLN = new TextBox();
+            txtLN.Text = "Content: ";
+            cxMenu.Items.Add(txtLN);
+
+            Button SaveInfoBtn = new Button();
+            SaveInfoBtn.Content = "Save";
+            cxMenu.Items.Add(SaveInfoBtn);
+            cxMenu.IsOpen = true;
+            SaveInfoBtn.Click += new RoutedEventHandler(SaveInfoBtnClick);
+        }
+
+        private void SaveInfoBtnClick(object sender, RoutedEventArgs e)
+        {
+            Information info = new Information()
+            {
+                Content = txtFN.Text,
+                InformationName = txtLN.Text,
+                UserId = usersService.GetUserIdByName(Settings.Default.UserName)
+            };
+
+            infoService.AddInformation(info);
+
+            cxMenu.IsOpen = false;
         }
     }
 }
