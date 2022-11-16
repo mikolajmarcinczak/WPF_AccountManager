@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace AccountManager.Services.Implementations
 {
-    internal class BillsService : IBillsService
+    public class BillsService : IBillsService
     {
         private readonly MoDbContext context;
         public BillsService(MoDbContext context)

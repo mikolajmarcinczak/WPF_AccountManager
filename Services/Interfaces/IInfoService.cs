@@ -7,7 +7,7 @@ using AccountManager.Models;
 
 namespace AccountManager.Services.Interfaces
 {
-    internal interface IInfoService
+    public interface IInfoService
     {
         IEnumerable<Information> GetAllForUser(string userName);
         bool AddInformation(Information information);

@@ -11,14 +11,14 @@ using AccountManager.Utilities;
 
 namespace AccountManager.ViewModels
 {
-    public class LoginViewModel
+    public class LoginViewModel : ObservableObject
     {
         private readonly MainWindow mainWindow;
         private readonly IUsersService usersService;
         private readonly Login loginWindow;
 
-        public ICommand LoginCommand { get; }
-        public ICommand RegisterCommand { get; }
+        public RelayCommand LoginCommand { get; }
+        public RelayCommand RegisterCommand { get; }
 
         public LoginViewModel(Login loginWindow, IUsersService usersService)
         {
@@ -47,7 +47,7 @@ namespace AccountManager.ViewModels
             }
             else
             {
-                loginWindow.statusLabel.Content = "Incorrect mail or password";
+                loginWindow.statusLabel.Content = "Incorrect mail or password.";
             }
         }
 
@@ -72,7 +72,7 @@ namespace AccountManager.ViewModels
             }
             else
             {
-                loginWindow.statusLabelReg.Content = "Error while signing up";
+                loginWindow.statusLabelReg.Content = "Error while signing up.";
             }
 
             mainWindow.Show();

@@ -7,7 +7,7 @@ using AccountManager.Models;
 
 namespace AccountManager.Services.Interfaces
 {
-    internal interface IUsersService
+    public interface IUsersService
     {
         bool Register(User user);
         bool Login(User user);

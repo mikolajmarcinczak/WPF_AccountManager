@@ -7,7 +7,7 @@ using AccountManager.Models;
 
 namespace AccountManager.Services.Interfaces
 {
-    internal interface IBillsService
+    public interface IBillsService
     {
         IEnumerable<Bill> GetBillsForUser(string userName);
         bool Add(Bill bill);

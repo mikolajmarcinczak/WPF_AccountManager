@@ -7,7 +7,7 @@ using System.Windows.Input;
 
 namespace AccountManager.Utilities
 {
-    internal class RelayCommand<T> : ICommand
+    public class RelayCommand<T> : ICommand
     {
         private readonly Action<T> _execute = null;
         private readonly Func<T, bool> _canExecute = null;

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace AccountManager.Services.Implementations
 {
-    internal class UsersService : IUsersService
+    public class UsersService : IUsersService
     {
         private readonly MoDbContext context;
         public UsersService(MoDbContext context)
