@@ -15,7 +15,7 @@
         <Button x:Name="addBillBtn" Content="Add new bill..." HorizontalAlignment="Left" Margin="90,160,0,0" VerticalAlignment="Top" Height="30" Width="310"/>
         <Button x:Name="addInfoBtn" Content="Add new information..." HorizontalAlignment="Left" Margin="400,160,0,0" VerticalAlignment="Top" Height="30" Width="310"/>
         <Label x:Name="welcomeLabel" Content="" HorizontalAlignment="Center" Margin="0,34,0,0" VerticalAlignment="Top" Width="620" Visibility="Visible" Opacity="0.8"/>
-        <DataGrid x:Name="mainDataGrid" Margin="90,220,90,10" MouseRightButtonUp="mainDataGrid_MouseRightButtonUp"/>
+        <DataGrid x:Name="mainDataGrid" Margin="90,220,90,10" Command="{Binding mainDataGrid_MouseRightButtonUp}"/>
 
     </Grid>
 </Window>
