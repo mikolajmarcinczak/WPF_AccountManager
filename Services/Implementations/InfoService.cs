@@ -11,8 +11,8 @@ namespace AccountManager.Services.Implementations
 {
     public class InfoService : IInfoService
     {
-        private readonly MoDbContext context;
-        public InfoService(MoDbContext context)
+        private readonly AccountManagerDBFirstContext context;
+        public InfoService(AccountManagerDBFirstContext context)
         {
             this.context = context;
         }

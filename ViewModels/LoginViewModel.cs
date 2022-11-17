@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using AccountManager.Models;
 using AccountManager.Properties;
+using AccountManager.Repository;
 using AccountManager.Services.Implementations;
 using AccountManager.Services.Interfaces;
 using AccountManager.Utilities;
@@ -18,7 +19,8 @@ namespace AccountManager.ViewModels
         private readonly IUsersService usersService;
         private readonly Login loginWindow;
 
-        private bool _isVisible;
+        private bool _isVisible = true;
+        public bool IsVisible { get => _isVisible; set => _isVisible = value; }
 
         private string _emailLogin;
         private string _passwordLogin;
@@ -32,21 +34,21 @@ namespace AccountManager.ViewModels
         private string _errorMessage;
 
 
-        public string EmailLogin { 
-            get => _emailLogin; 
-            set { 
+        public string EmailLogin {
+            get => _emailLogin;
+            set {
                 _emailLogin = value;
                 OnPropertyChanged(nameof(EmailLogin));
-            } 
+            }
         }
-        public string PasswordLogin { 
+        public string PasswordLogin {
             get => _passwordLogin;
-            set { 
+            set {
                 _passwordLogin = value;
                 OnPropertyChanged(nameof(PasswordLogin));
             }
         }
-        public string EmailRegister { 
+        public string EmailRegister {
             get => _emailRegister;
             set
             {
@@ -54,7 +56,7 @@ namespace AccountManager.ViewModels
                 OnPropertyChanged(nameof(EmailRegister));
             }
         }
-        public string PasswordRegister { 
+        public string PasswordRegister {
             get => _passwordRegister;
             set
             {
@@ -62,7 +64,7 @@ namespace AccountManager.ViewModels
                 OnPropertyChanged(nameof(PasswordRegister));
             }
         }
-        public string UsernameRegister { 
+        public string UsernameRegister {
             get => _usernameRegister;
             set
             {
@@ -70,7 +72,7 @@ namespace AccountManager.ViewModels
                 OnPropertyChanged(nameof(UsernameRegister));
             }
         }
-        public string SurnameRegister { 
+        public string SurnameRegister {
             get => _surnameRegister;
             set
             {
@@ -78,14 +80,14 @@ namespace AccountManager.ViewModels
                 OnPropertyChanged(nameof(SurnameRegister));
             }
         }
-        public string PhoneRegister { 
-            get => _phoneRegister; 
-            set { 
+        public string PhoneRegister {
+            get => _phoneRegister;
+            set {
                 _phoneRegister = value;
                 OnPropertyChanged(nameof(PhoneRegister));
             }
         }
-        public string ErrorMessage { 
+        public string ErrorMessage {
             get => _errorMessage;
             set
             {
@@ -94,17 +96,18 @@ namespace AccountManager.ViewModels
             }
         }
 
-        
+
         public RelayCommand LoginCommand { get; }
         public RelayCommand RegisterCommand { get; }
 
-        public LoginViewModel(IUsersService usersService)
+        public LoginViewModel()
         {
-            this.usersService = usersService;
+            usersService = new UsersService(new AccountManagerDBFirstContext());
 
             LoginCommand = new RelayCommand(Login, CanLoginCommand);
             RegisterCommand = new RelayCommand(Register);
         }
+
 
         private bool CanLoginCommand()
         {
@@ -125,8 +128,8 @@ namespace AccountManager.ViewModels
         {
             var user = new User()
             {
-                Email = loginWindow.LoginMailInput.Text.Replace(Environment.NewLine, "").Replace("\n", ""),
-                Password = loginWindow.LoginPasswordInput.Text.Replace(Environment.NewLine, "").Replace("\n", "")
+                Email = EmailLogin.Replace(Environment.NewLine, "").Replace("\n", ""),
+                Password = PasswordLogin.Replace(Environment.NewLine, "").Replace("\n", "")
             };
 
             var result = usersService.Login(user);
@@ -139,7 +142,7 @@ namespace AccountManager.ViewModels
             }
             else
             {
-                loginWindow.statusLabel.Content = "Incorrect mail or password.";
+                ErrorMessage = "Incorrect mail or password.";
             }
         }
 
@@ -147,11 +150,11 @@ namespace AccountManager.ViewModels
         {
             var user = new User()
             {
-                Email = loginWindow.RegisterMailInput.Text.Replace(Environment.NewLine, "").Replace("\n", ""),
-                Password = loginWindow.RegisterPasswordInput.Text.Replace(Environment.NewLine, "").Replace("\n", ""),
-                UserName = loginWindow.RegisterNameInput.Text.Replace(Environment.NewLine, "").Replace("\n", ""),
-                Surname = loginWindow.RegisterSurnameInput.Text.Replace(Environment.NewLine, "").Replace("\n", ""),
-                PhoneNumber = loginWindow.RegisterPhoneNumberInput.Text.Replace(Environment.NewLine, "").Replace("\n", "")
+                Email = EmailRegister.Replace(Environment.NewLine, "").Replace("\n", ""),
+                Password = PasswordRegister.Replace(Environment.NewLine, "").Replace("\n", ""),
+                UserName = UsernameRegister.Replace(Environment.NewLine, "").Replace("\n", ""),
+                Surname = SurnameRegister.Replace(Environment.NewLine, "").Replace("\n", ""),
+                PhoneNumber = PhoneRegister.Replace(Environment.NewLine, "").Replace("\n", "")
             };
 
             var result = usersService.Register(user);
@@ -164,7 +167,7 @@ namespace AccountManager.ViewModels
             }
             else
             {
-                loginWindow.statusLabelReg.Content = "Error while signing up.";
+                ErrorMessage = "Error while signing up.";
             }
 
             mainWindow.Show();

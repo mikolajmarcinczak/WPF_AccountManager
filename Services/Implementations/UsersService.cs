@@ -11,8 +11,8 @@ namespace AccountManager.Services.Implementations
 {
     public class UsersService : IUsersService
     {
-        private readonly MoDbContext context;
-        public UsersService(MoDbContext context)
+        private readonly AccountManagerDBFirstContext context;
+        public UsersService(AccountManagerDBFirstContext context)
         {
             this.context = context;
         }

@@ -12,8 +12,8 @@ namespace AccountManager.Services.Implementations
 {
     public class BillsService : IBillsService
     {
-        private readonly MoDbContext context;
-        public BillsService(MoDbContext context)
+        private readonly AccountManagerDBFirstContext context;
+        public BillsService(AccountManagerDBFirstContext context)
         {
             this.context = context;
         }
