@@ -23,7 +23,7 @@ namespace AccountManager
     {
         public MainWindow()
         {
-            InitializeComponent();
+            //InitializeComponent();
         }
     }
 }

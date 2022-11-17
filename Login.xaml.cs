@@ -21,7 +21,7 @@ namespace AccountManager
     {
         public Login()
         {
-            InitializeComponent();
+            //InitializeComponent();
         }
     }
 }

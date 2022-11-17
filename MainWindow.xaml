@@ -3,9 +3,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:AccountManager.ViewModels"
+        xmlns:ut="clr-namespace:AccountManager.Utilities"
         xmlns:local="clr-namespace:AccountManager"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+    <Window.DataContext>
+        <vm:MainWindowViewModel/>
+    </Window.DataContext>
     <Grid>
         <Image x:Name="banner" HorizontalAlignment="Center" Height="100" Margin="0,10,0,0" VerticalAlignment="Top" Width="620
                " Source="/Banner.jpg" Stretch="Fill"/>
@@ -15,7 +20,11 @@
         <Button x:Name="addBillBtn" Content="Add new bill..." HorizontalAlignment="Left" Margin="90,160,0,0" VerticalAlignment="Top" Height="30" Width="310"/>
         <Button x:Name="addInfoBtn" Content="Add new information..." HorizontalAlignment="Left" Margin="400,160,0,0" VerticalAlignment="Top" Height="30" Width="310"/>
         <Label x:Name="welcomeLabel" Content="" HorizontalAlignment="Center" Margin="0,34,0,0" VerticalAlignment="Top" Width="620" Visibility="Visible" Opacity="0.8"/>
-        <DataGrid x:Name="mainDataGrid" Margin="90,220,90,10" Command="{Binding mainDataGrid_MouseRightButtonUp}"/>
+        <DataGrid x:Name="mainDataGrid" Margin="90,220,90,10">
+            <InputBindingCollection>
+                <MouseBinding MouseAction="RightClick" Command="{Binding mainDataGrid_MouseRightButtonUp}"/>
+            </InputBindingCollection>
+        </DataGrid>
 
     </Grid>
 </Window>

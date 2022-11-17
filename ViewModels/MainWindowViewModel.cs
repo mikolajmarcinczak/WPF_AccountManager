@@ -1,4 +1,5 @@
 ﻿using AccountManager.Models;
+using AccountManager.Properties;
 using AccountManager.Services.Implementations;
 using AccountManager.Services.Interfaces;
 using System;
@@ -22,15 +23,8 @@ namespace AccountManager.ViewModels
         private readonly IInfoService infoService;
         List<Bill> billsList = new List<Bill>();
 
-        public MainWindowViewModel(MainWindow mainWindow,
-                                    IUsersService usersService,
-                                    IBillsService billsService,
-                                    IInfoService infoService)
+        public MainWindowViewModel()
         {
-            this.mainWindow = mainWindow;
-            this.usersService = usersService;
-            this.billsService = billsService;
-            this.infoService = infoService;
             mainWindow.welcomeLabel.FontSize = 20;
             mainWindow.welcomeLabel.FontWeight = FontWeights.Bold;
             HomeBtn();
