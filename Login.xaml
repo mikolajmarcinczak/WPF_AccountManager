@@ -54,8 +54,8 @@
             <Button x:Name="LoginButton" Content="Sign in" HorizontalAlignment="Center"
                     VerticalAlignment="Bottom" Width="160" Height="30"
                     Command="{Binding LoginCommand}"/>
-            <Label x:Name="statusLabel" HorizontalAlignment="Left" Height="36" Margin="324, 6, 350, 0"
-                   VerticalAlignment="Top" Width="126" Content="{Binding ErrorMessage}">
+            <Label x:Name="statusLabel" Foreground="Red" FontSize="16" HorizontalAlignment="Left" Height="auto" Margin="126,0"
+                   VerticalAlignment="Top" Width="auto" Content="{Binding ErrorMessage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             </Label>
         </StackPanel>
 
@@ -96,7 +96,7 @@
                     VerticalAlignment="Bottom" Width="160" Height="30"
                     Command="{Binding RegisterCommand}"/>
             <Label x:Name="statusLabelReg" HorizontalAlignment="Left" Height="36" Margin="324, 6, 350, 0" 
-                   VerticalAlignment="Top" Width="126" Content="{Binding ErrorMessage}">
+                   VerticalAlignment="Top" Width="126" Content="{Binding ErrorMessage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             </Label>
         </StackPanel>
     </Grid>

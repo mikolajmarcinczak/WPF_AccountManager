@@ -3,9 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:AccountManager"
              xmlns:vm="clr-namespace:AccountManager.ViewModels"
-             StartupUri="Login.xaml">
+             Startup="OnStartup">
     <Application.Resources>
-        <ResourceDictionary>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibility"/>
+        <ResourceDictionary x:Key="ViewModels">
             <DataTemplate DataType="{x:Type vm:LoginViewModel}">
                 <local:Login/>
             </DataTemplate>

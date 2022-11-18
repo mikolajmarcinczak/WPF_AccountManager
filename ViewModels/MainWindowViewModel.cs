@@ -18,28 +18,29 @@ namespace AccountManager.ViewModels
     public class MainWindowViewModel
     {
         private readonly MainWindow mainWindow;
-        private readonly IUsersService usersService;
-        private readonly IBillsService billsService;
-        private readonly IInfoService infoService;
+       // private readonly IUsersService usersService;
+        //private readonly IBillsService billsService;
+        //private readonly IInfoService infoService;
         List<Bill> billsList = new List<Bill>();
 
         public MainWindowViewModel()
         {
-            mainWindow.welcomeLabel.FontSize = 20;
-            mainWindow.welcomeLabel.FontWeight = FontWeights.Bold;
+            //mainWindow = new MainWindow();
+           // mainWindow.welcomeLabel.FontSize = 20;
+            //mainWindow.welcomeLabel.FontWeight = FontWeights.Bold;
             HomeBtn();
         }
 
         private void HomeBtn()
         {
-            mainWindow.welcomeLabel.Visibility = Visibility.Visible;
+            /*mainWindow.welcomeLabel.Visibility = Visibility.Visible;
             mainWindow.mainDataGrid.Visibility = Visibility.Hidden;
             mainWindow.addInfoBtn.Visibility = Visibility.Hidden;
             mainWindow.addBillBtn.Visibility = Visibility.Hidden;
-            mainWindow.welcomeLabel.Content = $"Welcome to Bill Manager, {Environment.NewLine}have a good day.";
+            mainWindow.welcomeLabel.Content = $"Welcome to Bill Manager, {Environment.NewLine}have a good day.";*/
         }
 
-        private void BillsBtn()
+       /* private void BillsBtn()
         {
             mainWindow.welcomeLabel.Visibility = Visibility.Hidden;
             mainWindow.mainDataGrid.Visibility = Visibility.Visible;
@@ -309,6 +310,6 @@ namespace AccountManager.ViewModels
             infoService.AddInformation(info);
 
             cxMenu.IsOpen = false;
-        }
+        }*/
     }
 }

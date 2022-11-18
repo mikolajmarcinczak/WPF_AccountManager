@@ -46,7 +46,7 @@ namespace AccountManager.Services.Implementations
         {
             var userdb = GetUsers();
 
-            if (userdb.Where(u => u.UserName == user.UserName && u.Password == user.Password).Count() > 0)
+            if (userdb.Where(u => u.Email == user.Email && u.Password == user.Password).Count() > 0)
             {
                 return true;
             }

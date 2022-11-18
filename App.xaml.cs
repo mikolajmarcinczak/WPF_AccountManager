@@ -1,4 +1,5 @@
-﻿using AccountManager.Repository;
+﻿using AccountManager.Models;
+using AccountManager.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -23,7 +24,7 @@ namespace AccountManager
 
         private void ConfigureServices(ServiceCollection services)
         {
-            services.AddDbContext<MoDbContext>(options =>
+            services.AddDbContext<AccountManagerDBFirstContext>(options =>
             {
                 options.UseSqlite("Data Source = AccountManagerDBFirst.db");
             });
@@ -31,10 +32,19 @@ namespace AccountManager
             services.AddSingleton<MainWindow>();
         }
 
-        private void OnStartup(object sender, StartupEventArgs e)
+        protected void OnStartup(object sender, StartupEventArgs e)
         {
-            var mainWindow = serviceProvider.GetService<MainWindow>();
-            mainWindow.Show();
+            var loginWindow = new Login();
+            loginWindow.Show();
+            loginWindow.IsVisibleChanged += (s, ev) =>
+            {
+                if (loginWindow.IsVisible == false && loginWindow.IsLoaded)
+                {
+                    var mainWindow = new MainWindow();
+                    mainWindow.Show();
+                    loginWindow.Close();
+                }
+            };
         }
     }
 }
