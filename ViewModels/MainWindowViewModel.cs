@@ -2,6 +2,7 @@
 using AccountManager.Properties;
 using AccountManager.Services.Implementations;
 using AccountManager.Services.Interfaces;
+using AccountManager.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,32 +16,55 @@ using System.Windows.Media;
 
 namespace AccountManager.ViewModels
 {
-    public class MainWindowViewModel
+    public class MainWindowViewModel : ObservableObject
     {
-        private readonly MainWindow mainWindow;
-       // private readonly IUsersService usersService;
-        //private readonly IBillsService billsService;
-        //private readonly IInfoService infoService;
+        //Services
+        private readonly IUsersService usersService;
+        private readonly IBillsService billsService;
+        private readonly IInfoService infoService;
         List<Bill> billsList = new List<Bill>();
+
+        //WindowProperties
+        private MainWindowProperties _props;
+        public MainWindowProperties WindowProperties
+        {
+            get => _props;
+            set
+            {
+                _props = value;
+                OnPropertyChanged(nameof(WindowProperties));
+            }
+        }
+
+        //Commands
+        public RelayCommand HomeBtnCommand { get; }
+        public RelayCommand BillsBtnCommand { get; }
+        public RelayCommand InfoBtnCommand { get; }
+        public RelayCommand AddBillBtnCommand { get; }
+        public RelayCommand AddInfoBtnCommand { get; }
 
         public MainWindowViewModel()
         {
-            //mainWindow = new MainWindow();
-           // mainWindow.welcomeLabel.FontSize = 20;
-            //mainWindow.welcomeLabel.FontWeight = FontWeights.Bold;
-            HomeBtn();
+            _props.FontSize = 20;
+            _props.FontWeight = FontWeights.Bold;
+
+            HomeBtnCommand = new RelayCommand(HomeBtn);
+            BillsBtnCommand = new RelayCommand(BillsBtn);
+            InfoBtnCommand = new RelayCommand(InfoBtn);
+            AddBillBtnCommand = new RelayCommand(AddBillBtn);
+            AddInfoBtnCommand = new RelayCommand(AddInfoBtn);
         }
 
         private void HomeBtn()
         {
-            /*mainWindow.welcomeLabel.Visibility = Visibility.Visible;
+            mainWindow.welcomeLabel.Visibility = Visibility.Visible;
             mainWindow.mainDataGrid.Visibility = Visibility.Hidden;
             mainWindow.addInfoBtn.Visibility = Visibility.Hidden;
             mainWindow.addBillBtn.Visibility = Visibility.Hidden;
-            mainWindow.welcomeLabel.Content = $"Welcome to Bill Manager, {Environment.NewLine}have a good day.";*/
+            mainWindow.welcomeLabel.Content = $"Welcome to Bill Manager, {Environment.NewLine}have a good day.";
         }
 
-       /* private void BillsBtn()
+        private void BillsBtn()
         {
             mainWindow.welcomeLabel.Visibility = Visibility.Hidden;
             mainWindow.mainDataGrid.Visibility = Visibility.Visible;
@@ -270,10 +294,9 @@ namespace AccountManager.ViewModels
             cxMenu.Items.Add(decTB);
         }
 
-        private void AddInfoBtn(object sender, RoutedEventArgs e)
+        private void AddInfoBtn()
         {
             cxMenu = new ContextMenu();
-            DependencyObject depObj = (DependencyObject)e.OriginalSource;
 
             txtId = new TextBlock();
             txtId.Text = "Info: ";
@@ -310,6 +333,6 @@ namespace AccountManager.ViewModels
             infoService.AddInformation(info);
 
             cxMenu.IsOpen = false;
-        }*/
+        }
     }
 }

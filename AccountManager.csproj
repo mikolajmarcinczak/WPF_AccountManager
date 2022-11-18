@@ -8,6 +8,14 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <Optimize>True</Optimize>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <Optimize>False</Optimize>
+  </PropertyGroup>
+
   <ItemGroup>
     <None Remove="Banner.jpg" />
     <None Remove="Content\key-64.ico" />
@@ -28,9 +36,9 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
   </ItemGroup>
 
-  <ItemGroup>
+  <!--<ItemGroup>
     <ProjectReference Include="..\NETFramework48LIB\NETFramework48LIB.csproj" />
-  </ItemGroup>
+  </ItemGroup>-->
 
   <ItemGroup>
     <Resource Include="Banner.jpg" />

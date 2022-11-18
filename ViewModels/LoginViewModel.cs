@@ -15,7 +15,6 @@ namespace AccountManager.ViewModels
 {
     public class LoginViewModel : ObservableObject
     {
-        private readonly MainWindow mainWindow;
         private readonly IUsersService usersService;
 
         private bool _isVisible = true;
@@ -110,7 +109,6 @@ namespace AccountManager.ViewModels
         public LoginViewModel()
         {
             usersService = new UsersService(new AccountManagerDBFirstContext());
-            mainWindow = new MainWindow();
 
             LoginCommand = new RelayCommand(Login, CanLoginCommand);
             RegisterCommand = new RelayCommand(Register);
@@ -145,7 +143,6 @@ namespace AccountManager.ViewModels
             if (result == true)
             {
                 Settings.Default.Email= user.Email;
-                //mainWindow.Show();
                 IsVisible = false;
             }
             else
@@ -170,7 +167,6 @@ namespace AccountManager.ViewModels
             if (result == true)
             {
                 Settings.Default.Email = user.Email;
-                //mainWindow.Show();
                 IsVisible = false;
             }
             else
@@ -178,7 +174,6 @@ namespace AccountManager.ViewModels
                 ErrorMessage = "Error while signing up.";
             }
 
-            //mainWindow.Show();
             IsVisible = false;
         }
     }
