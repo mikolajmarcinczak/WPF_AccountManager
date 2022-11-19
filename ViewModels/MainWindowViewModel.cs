@@ -45,8 +45,8 @@ namespace AccountManager.ViewModels
 
         public MainWindowViewModel()
         {
-            _props.FontSize = 20;
-            _props.FontWeight = FontWeights.Bold;
+            WindowProperties.FontSize = 20;
+            WindowProperties.FontWeight = FontWeights.Bold;
 
             HomeBtnCommand = new RelayCommand(HomeBtn);
             BillsBtnCommand = new RelayCommand(BillsBtn);
@@ -57,29 +57,30 @@ namespace AccountManager.ViewModels
 
         private void HomeBtn()
         {
-            mainWindow.welcomeLabel.Visibility = Visibility.Visible;
-            mainWindow.mainDataGrid.Visibility = Visibility.Hidden;
-            mainWindow.addInfoBtn.Visibility = Visibility.Hidden;
-            mainWindow.addBillBtn.Visibility = Visibility.Hidden;
-            mainWindow.welcomeLabel.Content = $"Welcome to Bill Manager, {Environment.NewLine}have a good day.";
+            WindowProperties.WelcomeLabelVis = true;
+            WindowProperties.MainDataGridVis = false;
+            WindowProperties.AddInfoBtnVis = false;
+            WindowProperties.AddBillBtnVis = false;
+            WindowProperties.WelcomeMessage = $"Welcome to Bill Manager, {Environment.NewLine}have a good day.";
         }
 
         private void BillsBtn()
         {
-            mainWindow.welcomeLabel.Visibility = Visibility.Hidden;
-            mainWindow.mainDataGrid.Visibility = Visibility.Visible;
-            mainWindow.addInfoBtn.Visibility = Visibility.Hidden;
-            mainWindow.addBillBtn.Visibility = Visibility.Visible;
+            WindowProperties.WelcomeLabelVis = false;
+            WindowProperties.MainDataGridVis = true;
+            WindowProperties.AddInfoBtnVis = false;
+            WindowProperties.AddBillBtnVis = true;
             billsList = billsService.GetBillsForUser(Settings.Default.UserName).ToList();
             mainWindow.mainDataGrid.ItemsSource = billsList;
         }
 
         private void InfoBtn()
         {
-            mainWindow.welcomeLabel.Visibility = Visibility.Visible;
-            mainWindow.mainDataGrid.Visibility = Visibility.Hidden;
-            mainWindow.addInfoBtn.Visibility = Visibility.Visible;
-            mainWindow.welcomeLabel.Content = infoService.GetInformationStringForUser(Settings.Default.UserName);
+            WindowProperties.WelcomeLabelVis = true;
+            WindowProperties.MainDataGridVis = false;
+            WindowProperties.AddInfoBtnVis = true;
+            WindowProperties.AddBillBtnVis = false;
+            WindowProperties.WelcomeMessage = infoService.GetInformationStringForUser(Settings.Default.UserName);
         }
 
         ContextMenu cxMenu = null;

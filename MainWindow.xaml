@@ -7,6 +7,8 @@
         xmlns:ut="clr-namespace:AccountManager.Utilities"
         xmlns:local="clr-namespace:AccountManager"
         mc:Ignorable="d"
+        FontSize="{Binding WindowProperties.FontSize, Mode=TwoWay}"
+        FontWeight="{Binding WindowProperties.FontWeight, Mode=TwoWay}"
         Title="MainWindow" Height="450" Width="800">
     <Window.DataContext>
         <vm:MainWindowViewModel/>
@@ -17,10 +19,10 @@
         <Button x:Name="homeBtn" Content="Home" HorizontalAlignment="Left" Margin="90,110,0,0" VerticalAlignment="Top" Height="30" Width="240"/>
         <Button x:Name="billsBtn" Content="Bills" HorizontalAlignment="Left" Margin="330,110,0,0" VerticalAlignment="Top" Height="30" Width="240"/>
         <Button x:Name="infoBtn" Content="Info" HorizontalAlignment="Left" Margin="570,110,0,0" VerticalAlignment="Top" Height="30" Width="140"/>
-        <Button x:Name="addBillBtn" Content="Add new bill..." HorizontalAlignment="Left" Margin="90,160,0,0" VerticalAlignment="Top" Height="30" Width="310"/>
-        <Button x:Name="addInfoBtn" Content="Add new information..." HorizontalAlignment="Left" Margin="400,160,0,0" VerticalAlignment="Top" Height="30" Width="310"/>
-        <Label x:Name="welcomeLabel" Content="" HorizontalAlignment="Center" Margin="0,34,0,0" VerticalAlignment="Top" Width="620" Visibility="Visible" Opacity="0.8"/>
-        <DataGrid x:Name="mainDataGrid" Margin="90,220,90,10">
+        <Button x:Name="addBillBtn" Visibility="{Binding Path=WindowProperties.AddBillBtnVis,Mode=TwoWay, Converter={StaticResource BooleanToVisibility}}" Content="Add new bill..." HorizontalAlignment="Left" Margin="90,160,0,0" VerticalAlignment="Top" Height="30" Width="310"/>
+        <Button x:Name="addInfoBtn" Visibility="{Binding Path=WindowProperties.AddInfoBtnVis,Mode=TwoWay, Converter={StaticResource BooleanToVisibility}}" Content="Add new information..." HorizontalAlignment="Left" Margin="400,160,0,0" VerticalAlignment="Top" Height="30" Width="310"/>
+        <Label x:Name="welcomeLabel" Visibility="{Binding Path=WindowProperties.WelcomeLabelVis,Mode=TwoWay, Converter={StaticResource BooleanToVisibility}}" Content="{Binding WindowProperties.WelcomeMessage}" HorizontalAlignment="Center" Margin="0,34,0,0" VerticalAlignment="Top" Width="620" Opacity="0.8"/>
+        <DataGrid x:Name="mainDataGrid" Visibility="{Binding Path=WindowProperties.MainDataGridVis,Mode=TwoWay, Converter={StaticResource BooleanToVisibility}}" Margin="90,220,90,10">
             <InputBindingCollection>
                 <MouseBinding MouseAction="RightClick" Command="{Binding mainDataGrid_MouseRightButtonUp}"/>
             </InputBindingCollection>
