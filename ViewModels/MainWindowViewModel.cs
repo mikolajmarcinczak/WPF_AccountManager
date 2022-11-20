@@ -22,7 +22,7 @@ namespace AccountManager.ViewModels
         private readonly IUsersService usersService;
         private readonly IBillsService billsService;
         private readonly IInfoService infoService;
-        List<Bill> billsList = new List<Bill>();
+        //List<Bill> billsList = new List<Bill>();
 
         //WindowProperties
         private MainWindowProperties _props;
@@ -36,17 +36,53 @@ namespace AccountManager.ViewModels
             }
         }
 
+        //DataGrid
+        private List<Bill> _billsList = null;
+        public List<Bill> BillsList
+        {
+            get => _billsList;
+            set
+            {
+                if (_billsList == value)
+                {
+                    return;
+                }
+                _billsList = value;
+                OnPropertyChanged(nameof(BillsList));
+            }
+        }
+
+        private Bill _selectedItem = null;
+        public Bill SelectedItem
+        {
+            get => _selectedItem;
+            set
+            {
+                if (_selectedItem == value)
+                {
+                    return;
+                }
+                _selectedItem = value;
+                OnPropertyChanged(nameof(SelectedItem));
+            }
+        }
+
         //Commands
         public RelayCommand HomeBtnCommand { get; }
         public RelayCommand BillsBtnCommand { get; }
         public RelayCommand InfoBtnCommand { get; }
         public RelayCommand AddBillBtnCommand { get; }
         public RelayCommand AddInfoBtnCommand { get; }
+        //public RelayCommand
 
         public MainWindowViewModel()
         {
             WindowProperties.FontSize = 20;
             WindowProperties.FontWeight = FontWeights.Bold;
+
+            usersService = new UsersService(new AccountManagerDBFirstContext());
+            billsService = new BillsService(new AccountManagerDBFirstContext());
+            infoService = new InfoService(new AccountManagerDBFirstContext());
 
             HomeBtnCommand = new RelayCommand(HomeBtn);
             BillsBtnCommand = new RelayCommand(BillsBtn);
@@ -70,8 +106,8 @@ namespace AccountManager.ViewModels
             WindowProperties.MainDataGridVis = true;
             WindowProperties.AddInfoBtnVis = false;
             WindowProperties.AddBillBtnVis = true;
-            billsList = billsService.GetBillsForUser(Settings.Default.UserName).ToList();
-            mainWindow.mainDataGrid.ItemsSource = billsList;
+            BillsList = billsService.GetBillsForUser(Settings.Default.UserName).ToList();
+            //mainWindow.mainDataGrid.ItemsSource = BillsList;
         }
 
         private void InfoBtn()
@@ -100,6 +136,33 @@ namespace AccountManager.ViewModels
             saveBillBtn.Click += new RoutedEventHandler(saveBillBtnClick);
         }
 
+        private void AddInfoBtn()
+        {
+            cxMenu = new ContextMenu();
+
+            txtId = new TextBlock();
+            txtId.Text = "Info: ";
+            cxMenu.Items.Add(txtId);
+
+            txtFN = new TextBox();
+            txtFN.Text = "Info: ";
+            cxMenu.Items.Add(txtFN);
+
+            txtId = new TextBlock();
+            txtId.Text = "Content: ";
+            cxMenu.Items.Add(txtId);
+
+            txtLN = new TextBox();
+            txtLN.Text = "Content: ";
+            cxMenu.Items.Add(txtLN);
+
+            Button SaveInfoBtn = new Button();
+            SaveInfoBtn.Content = "Save";
+            cxMenu.Items.Add(SaveInfoBtn);
+            cxMenu.IsOpen = true;
+            SaveInfoBtn.Click += new RoutedEventHandler(SaveInfoBtnClick);
+        }
+
         private void saveBillBtnClick(object sender, RoutedEventArgs e)
         {
             Bill bill = new Bill()
@@ -120,6 +183,20 @@ namespace AccountManager.ViewModels
                 UserId = usersService.GetUserIdByName(Settings.Default.UserName),
             };
             billsService.Add(bill);
+        }
+
+        private void SaveInfoBtnClick(object sender, RoutedEventArgs e)
+        {
+            Information info = new Information()
+            {
+                Content = txtFN.Text,
+                InformationName = txtLN.Text,
+                UserId = usersService.GetUserIdByName(Settings.Default.UserName)
+            };
+
+            infoService.AddInformation(info);
+
+            cxMenu.IsOpen = false;
         }
 
         private void mainDataGrid_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
@@ -155,7 +232,7 @@ namespace AccountManager.ViewModels
         {
             cxMenu = new ContextMenu();
 
-            foreach (Bill item in mainWindow.mainDataGrid.SelectedItems)
+            foreach (Bill item in BillsList) //selecteditems;
             {
                 bill = new Bill
                 {
@@ -191,7 +268,7 @@ namespace AccountManager.ViewModels
         {
             Bill bill = new Bill();
 
-            foreach (Bill item in billsList)
+            foreach (Bill item in BillsList)
             {
                 if (item.Id == Convert.ToInt32(txtId.Text))
                 {
@@ -212,14 +289,14 @@ namespace AccountManager.ViewModels
                 }
             }
 
-            mainWindow.mainDataGrid.SelectionChanged -= new SelectionChangedEventHandler(mainDataGrid_SelectionChanged);
+            /*mainWindow.mainDataGrid.SelectionChanged -= new SelectionChangedEventHandler(mainDataGrid_SelectionChanged);
 
             mainWindow.mainDataGrid.ItemsSource = null;
-            mainWindow.mainDataGrid.ItemsSource = billsList;
+            mainWindow.mainDataGrid.ItemsSource = BillsList;
             mainWindow.mainDataGrid.SelectedIndex = -1;
-
+            */
             cxMenu.IsOpen = false;
-            mainWindow.mainDataGrid.SelectionChanged += new SelectionChangedEventHandler(mainDataGrid_SelectionChanged);
+            //mainWindow.mainDataGrid.SelectionChanged += new SelectionChangedEventHandler(mainDataGrid_SelectionChanged);
         }
 
         private void GenerateMonthTB(ContextMenu cxMenu)
@@ -295,45 +372,6 @@ namespace AccountManager.ViewModels
             cxMenu.Items.Add(decTB);
         }
 
-        private void AddInfoBtn()
-        {
-            cxMenu = new ContextMenu();
 
-            txtId = new TextBlock();
-            txtId.Text = "Info: ";
-            cxMenu.Items.Add(txtId);
-
-            txtFN = new TextBox();
-            txtFN.Text = "Info: ";
-            cxMenu.Items.Add(txtFN);
-
-            txtId = new TextBlock();
-            txtId.Text = "Content: ";
-            cxMenu.Items.Add(txtId);
-
-            txtLN = new TextBox();
-            txtLN.Text = "Content: ";
-            cxMenu.Items.Add(txtLN);
-
-            Button SaveInfoBtn = new Button();
-            SaveInfoBtn.Content = "Save";
-            cxMenu.Items.Add(SaveInfoBtn);
-            cxMenu.IsOpen = true;
-            SaveInfoBtn.Click += new RoutedEventHandler(SaveInfoBtnClick);
-        }
-
-        private void SaveInfoBtnClick(object sender, RoutedEventArgs e)
-        {
-            Information info = new Information()
-            {
-                Content = txtFN.Text,
-                InformationName = txtLN.Text,
-                UserId = usersService.GetUserIdByName(Settings.Default.UserName)
-            };
-
-            infoService.AddInformation(info);
-
-            cxMenu.IsOpen = false;
-        }
     }
 }
