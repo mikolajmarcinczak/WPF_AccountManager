@@ -77,8 +77,11 @@ namespace AccountManager.ViewModels
 
         public MainWindowViewModel()
         {
+            this.WindowProperties = new MainWindowProperties();
             WindowProperties.FontSize = 20;
             WindowProperties.FontWeight = FontWeights.Bold;
+
+            //this.BillsList = new List<Bill>();
 
             usersService = new UsersService(new AccountManagerDBFirstContext());
             billsService = new BillsService(new AccountManagerDBFirstContext());

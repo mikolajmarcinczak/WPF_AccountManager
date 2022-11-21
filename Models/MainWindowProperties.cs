@@ -17,6 +17,16 @@ namespace AccountManager.Models
         private string _welcomeMessage = "";
         private int _fontSize;
         private FontWeight _fontWeight;
+
+        public MainWindowProperties()
+        {
+            this._welcomeLabelVis = true;
+            this._mainDataGridVis = false;
+            this._addInfoBtnVis = false;
+            this._addBillBtnVis = false;
+            this._welcomeMessage = "";
+    }
+
         public int FontSize
         {
             get => _fontSize;
