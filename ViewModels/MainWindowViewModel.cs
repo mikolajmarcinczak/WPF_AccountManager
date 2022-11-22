@@ -73,7 +73,8 @@ namespace AccountManager.ViewModels
         public RelayCommand InfoBtnCommand { get; }
         public RelayCommand AddBillBtnCommand { get; }
         public RelayCommand AddInfoBtnCommand { get; }
-        //public RelayCommand
+        public RelayCommand mainDataGrid_SelectionChangedCommand { get; }
+        //public RelayCommand mainDataGrid_MouseRightButtonUpCommand { get; }
 
         public MainWindowViewModel()
         {
@@ -92,6 +93,9 @@ namespace AccountManager.ViewModels
             InfoBtnCommand = new RelayCommand(InfoBtn);
             AddBillBtnCommand = new RelayCommand(AddBillBtn);
             AddInfoBtnCommand = new RelayCommand(AddInfoBtn);
+
+            //mainDataGrid_MouseRightButtonUpCommand = new RelayCommand(mainDataGrid_MouseRightButtonUp);
+            mainDataGrid_SelectionChangedCommand = new RelayCommand(mainDataGrid_SelectionChanged);
         }
 
         private void HomeBtn()
@@ -202,10 +206,8 @@ namespace AccountManager.ViewModels
             cxMenu.IsOpen = false;
         }
 
-        private void mainDataGrid_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        /*private void mainDataGrid_MouseRightButtonUp()
         {
-            DependencyObject depObj = (DependencyObject)e.OriginalSource;
-
             while (
                 (depObj != null) &&
                 !(depObj is DataGridCell) &&
@@ -229,9 +231,9 @@ namespace AccountManager.ViewModels
                 DataGridRow dgRow = depObj as DataGridRow;
                 dgRow.ContextMenu = cxMenu;
             }
-        }
+        }*/
 
-        private void mainDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void mainDataGrid_SelectionChanged()
         {
             cxMenu = new ContextMenu();
 

@@ -24,12 +24,12 @@
         <Button x:Name="addInfoBtn" Command="{Binding AddInfoBtnCommand}" Visibility="{Binding Path=WindowProperties.AddInfoBtnVis,Mode=TwoWay, Converter={StaticResource BooleanToVisibility}}" Content="Add new information..." HorizontalAlignment="Left" Margin="400,160,0,0" VerticalAlignment="Top" Height="30" Width="310"/>
         <Label x:Name="welcomeLabel" Visibility="{Binding Path=WindowProperties.WelcomeLabelVis,Mode=TwoWay, Converter={StaticResource BooleanToVisibility}}" Content="{Binding WindowProperties.WelcomeMessage}" HorizontalAlignment="Center" Margin="0,34,0,0" VerticalAlignment="Top" Width="620" Opacity="0.8"/>
         <DataGrid x:Name="mainDataGrid" ItemsSource="{Binding Path=BillsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Path=SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding Path=WindowProperties.MainDataGridVis,Mode=TwoWay, Converter={StaticResource BooleanToVisibility}}" Margin="90,220,90,10">
-            <InputBindingCollection>
-                <MouseBinding MouseAction="RightClick" Command="{Binding mainDataGrid_MouseRightButtonUp}"/>
-            </InputBindingCollection>
+            <!--<InputBindingCollection>
+                <MouseBinding MouseAction="RightClick" Command="{Binding mainDataGrid_MouseRightButtonUpCommand}"/>
+            </InputBindingCollection>-->
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
-                    <i:InvokeCommandAction Command="{Binding mainDataGrid_SelectionChanged}"/>
+                    <i:InvokeCommandAction Command="{Binding mainDataGrid_SelectionChangedCommand}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </DataGrid>

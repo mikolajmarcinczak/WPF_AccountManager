@@ -143,6 +143,7 @@ namespace AccountManager.ViewModels
             if (result == true)
             {
                 Settings.Default.Email= user.Email;
+                Settings.Default.UserName= user.UserName;
                 IsVisible = false;
             }
             else
@@ -167,6 +168,7 @@ namespace AccountManager.ViewModels
             if (result == true)
             {
                 Settings.Default.Email = user.Email;
+                Settings.Default.UserName = user.UserName;
                 IsVisible = false;
             }
             else
