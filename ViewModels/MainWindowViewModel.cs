@@ -6,13 +6,8 @@ using AccountManager.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Input;
-using System.Windows.Media;
 
 namespace AccountManager.ViewModels
 {
@@ -25,7 +20,7 @@ namespace AccountManager.ViewModels
         //List<Bill> billsList = new List<Bill>();
 
         //WindowProperties
-        private MainWindowProperties _props;
+        private MainWindowProperties _props = null;
         public MainWindowProperties WindowProperties
         {
             get => _props;

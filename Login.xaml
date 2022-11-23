@@ -18,7 +18,7 @@
     </Window.Resources>
     
     <Window.Visibility>
-        <Binding Path="IsVisible" Mode="TwoWay" Converter="{StaticResource BooleanToVisibility}"/>
+        <Binding Path="LoginProperties.IsVisible" Mode="TwoWay" Converter="{StaticResource BooleanToVisibility}"/>
     </Window.Visibility>
     
     <Grid Background="#9095A1">
@@ -46,16 +46,16 @@
                 </StackPanel>
                 <StackPanel Grid.Column="1">
                     <TextBox x:Name="LoginMailInput" HorizontalAlignment="Stretch" Margin="5"
-                             Text="{Binding EmailLogin, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="36"/>
+                             Text="{Binding LoginProperties.EmailLogin, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="36"/>
                     <controls:BindablePasswordBox Margin="5"
-                             Password="{Binding PasswordLogin, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="36"/>
+                             Password="{Binding LoginProperties.PasswordLogin, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="36"/>
                 </StackPanel>
             </Grid>
             <Button x:Name="LoginButton" Content="Sign in" HorizontalAlignment="Center"
                     VerticalAlignment="Bottom" Width="160" Height="30"
                     Command="{Binding LoginCommand}"/>
             <Label x:Name="statusLabel" Foreground="Red" FontSize="16" HorizontalAlignment="Left" Height="auto" Margin="126,0"
-                   VerticalAlignment="Top" Width="auto" Content="{Binding ErrorMessage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                   VerticalAlignment="Top" Width="auto" Content="{Binding LoginProperties.ErrorMessage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             </Label>
         </StackPanel>
 
@@ -82,21 +82,21 @@
                 <Label Content="Phone Number:" FontSize="16" Grid.Row="4"/>
 
                 <TextBox x:Name="RegisterMailInput" HorizontalAlignment="Stretch" Margin="5"
-                             Text="{Binding EmailRegister, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="0" Height="36"/>
-                <controls:BindablePasswordBox Margin="5" Password="{Binding PasswordRegister, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                             Text="{Binding LoginProperties.EmailRegister, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="0" Height="36"/>
+                <controls:BindablePasswordBox Margin="5" Password="{Binding LoginProperties.PasswordRegister, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                                               Grid.Column="1" Grid.Row="1" Height="36"/>
                 <TextBox x:Name="RegisterNameInput" HorizontalAlignment="Stretch" Margin="5"
-                             Text="{Binding UsernameRegister, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="2" Height="36"/>
+                             Text="{Binding LoginProperties.UsernameRegister, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="2" Height="36"/>
                 <TextBox x:Name="RegisterSurnameInput" HorizontalAlignment="Stretch" Margin="5"
-                             Text="{Binding SurnameRegister, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="3" Height="36"/>
+                             Text="{Binding LoginProperties.SurnameRegister, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="3" Height="36"/>
                 <TextBox x:Name="RegisterPhoneNumberInput" HorizontalAlignment="Stretch" Margin="5"
-                             Text="{Binding PhoneRegister, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="4" Height="36"/>
+                             Text="{Binding LoginProperties.PhoneRegister, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="4" Height="36"/>
             </Grid>
             <Button x:Name="RegisterButton" Content="Sign up" HorizontalAlignment="Center"
                     VerticalAlignment="Bottom" Width="160" Height="30"
                     Command="{Binding RegisterCommand}"/>
             <Label x:Name="statusLabelReg" HorizontalAlignment="Left" Height="36" Margin="324, 6, 350, 0" 
-                   VerticalAlignment="Top" Width="126" Content="{Binding ErrorMessage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                   VerticalAlignment="Top" Width="126" Content="{Binding LoginProperties.ErrorMessage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             </Label>
         </StackPanel>
     </Grid>
