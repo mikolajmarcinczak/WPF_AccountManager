@@ -113,7 +113,7 @@ namespace AccountManager.ViewModels
             WindowProperties.MainDataGridVis = true;
             WindowProperties.AddInfoBtnVis = false;
             WindowProperties.AddBillBtnVis = true;
-            BillsList = billsService.GetBillsForUser(Settings.Default.UserName).ToList();
+            BillsList = billsService.GetBillsForUser(Settings.Default.Email).ToList();
             //mainWindow.mainDataGrid.ItemsSource = BillsList;
         }
 
@@ -123,7 +123,7 @@ namespace AccountManager.ViewModels
             WindowProperties.MainDataGridVis = false;
             WindowProperties.AddInfoBtnVis = true;
             WindowProperties.AddBillBtnVis = false;
-            WindowProperties.WelcomeMessage = infoService.GetInformationStringForUser(Settings.Default.UserName);
+            WindowProperties.WelcomeMessage = infoService.GetInformationStringForUser(Settings.Default.Email);
         }
 
         ContextMenu cxMenu = null;
@@ -187,7 +187,7 @@ namespace AccountManager.ViewModels
                 October = Double.Parse(octTB.Text),
                 September = Double.Parse(sepTB.Text),
                 BillName = nameTB.Text,
-                UserId = usersService.GetUserIdByName(Settings.Default.UserName),
+                UserId = usersService.GetUserIdByName(Settings.Default.Email),
             };
             billsService.Add(bill);
         }
@@ -198,7 +198,7 @@ namespace AccountManager.ViewModels
             {
                 Content = txtFN.Text,
                 InformationName = txtLN.Text,
-                UserId = usersService.GetUserIdByName(Settings.Default.UserName)
+                UserId = usersService.GetUserIdByName(Settings.Default.Email)
             };
 
             infoService.AddInformation(info);

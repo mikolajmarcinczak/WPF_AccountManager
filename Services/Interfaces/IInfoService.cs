@@ -9,8 +9,8 @@ namespace AccountManager.Services.Interfaces
 {
     public interface IInfoService
     {
-        IEnumerable<Information> GetAllForUser(string userName);
+        IEnumerable<Information> GetAllForUser(string email);
         bool AddInformation(Information information);
-        string GetInformationStringForUser(string userName);
+        string GetInformationStringForUser(string email);
     }
 }

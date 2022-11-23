@@ -58,9 +58,9 @@ namespace AccountManager.Services.Implementations
             return true;
         }
 
-        public IEnumerable<Bill> GetBillsForUser(string userName)
+        public IEnumerable<Bill> GetBillsForUser(string email)
         {
-            return context.Bills.Where(b => b.User.UserName == userName);
+            return context.Bills.Where(b => b.User.Email == email);
         }
     }
 }

@@ -31,14 +31,14 @@ namespace AccountManager.Services.Implementations
             return true;
         }
 
-        public IEnumerable<Information> GetAllForUser(string userName)
+        public IEnumerable<Information> GetAllForUser(string email)
         {
-            return context.Informations.Where(i => i.User.UserName == userName);
+            return context.Informations.Where(i => i.User.Email == email);
         }
 
-        public string GetInformationStringForUser(string userName)
+        public string GetInformationStringForUser(string email)
         {
-            var informations = GetAllForUser(userName);
+            var informations = GetAllForUser(email);
             string result = "";
 
             foreach(var info in informations)

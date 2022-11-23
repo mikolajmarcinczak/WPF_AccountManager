@@ -13,6 +13,6 @@ namespace AccountManager.Services.Interfaces
         bool Login(User user);
         public bool EditUser(User user);
         IEnumerable<User> GetUsers();
-        int GetUserIdByName(string userName);
+        int GetUserIdByName(string email);
     }
 }

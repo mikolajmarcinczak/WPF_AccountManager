@@ -69,9 +69,10 @@ namespace AccountManager.Services.Implementations
             }
             return true;
         }
-        public int GetUserIdByName(string userName)
+
+        public int GetUserIdByName(string email)
         {
-            return context.Users.FirstOrDefault(u => u.UserName == userName).Id;
+            return context.Users.FirstOrDefault(u => u.Email == email).Id;
         }
     }
 }

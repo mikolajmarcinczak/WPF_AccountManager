@@ -9,7 +9,7 @@ namespace AccountManager.Services.Interfaces
 {
     public interface IBillsService
     {
-        IEnumerable<Bill> GetBillsForUser(string userName);
+        IEnumerable<Bill> GetBillsForUser(string email);
         bool Add(Bill bill);
         bool Edit(Bill bill);
     }
